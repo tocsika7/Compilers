@@ -9,11 +9,11 @@ public class DOMOL{
     public static void main(String[] args) {
         Console console = System.console(); 
         if(console == null){
-            System.err.println("No console");
+            System.err.println("Nincs konzol!");
             System.exit(1);
         }
 
-        System.out.println("Write the expression!");
+        System.out.println("Adja meg a kifejezést!");
         input = console.readLine();
 
         for(i = 0; i<input.length(); i++){
@@ -40,7 +40,7 @@ public class DOMOL{
                         kommentben();
                         break;
                     case '(':
-                        csillag_kommentben();
+                        kerek_kommentben();
                         break; 
                 }   
             }
@@ -138,31 +138,31 @@ public class DOMOL{
         if(input.charAt(i)=='$'){System.exit(1);} 
     }
 
-    private static void csillag_kommentben() {
+    private static void kerek_kommentben() {
         i++;
         if(input.charAt(i)=='*')
-            helyes_csillag_kommentben();
+            kerek_csillag_kommentben();
         else
             System.out.println("<hiba>");
     }
 
-    public static void helyes_csillag_kommentben(){
+    public static void kerek_csillag_kommentben(){
         i++;
         count=0;
         if(input.charAt(i)==')'&&input.charAt(i-1)=='*'){
-            csillag_komment_vege();
+            kerek_csillag_komment_vege();
         }
         else if(input.charAt(i)=='$'){
             System.out.println("<hiba>");
             count++;
         }
         else{
-            helyes_csillag_kommentben();
+            kerek_csillag_kommentben();
         }
         i-=count;
     }
 
-    private static void csillag_komment_vege() {
+    private static void kerek_csillag_komment_vege() {
         System.out.println("<(**) kommentár>");
         if(input.charAt(i)=='$'){System.exit(1);} 
     }
