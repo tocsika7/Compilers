@@ -14,7 +14,9 @@ public class DOMOL{
         }
 
         System.out.println("Adja meg a kifejezést!");
+        try{
         input = console.readLine();
+      
 
         for(i = 0; i<input.length(); i++){
             if(Character.isDigit(input.charAt(i))==true){
@@ -42,9 +44,18 @@ public class DOMOL{
                     case '(':
                         kerek_kommentben();
                         break; 
+                    case '$':
+                        break;
+                    default:
+                        hiba();
+                        break;
                 }   
             }
         }
+    }
+    catch(IndexOutOfBoundsException e){
+        System.out.println("A kifejezést $-el kell zárni.");
+    }
     }
 
     public static void azonositoban(){ 
@@ -69,63 +80,63 @@ public class DOMOL{
             szam_vege();
     }
 
-    private static void szam_vege() {
+    public static void szam_vege() {
         i--;
         System.out.println("<szám>");
         if(input.charAt(i)=='$'){System.exit(1);}
     }
 
-    private static void kettospont() {
+    public static void kettospont() {
         if(input.charAt(i+1)=='='){
             System.out.println("<:= operátor>");
         }
         else{
-            System.out.println("<hiba>");
+            hiba();
 
         }
         if(input.charAt(i)=='$'){System.exit(1);}  
     }
 
-    private static void kisebben() {
+    public static void kisebben() {
         i++;
         if(input.charAt(i)=='>')
             kisebben_nagyobb();
         else if (input.charAt(i)=='=')
             kisebben_egyenlo();
         else{
-            System.out.println("<hiba>");
+            hiba();
             i--;
         }
     }
 
-    private static void kisebben_nagyobb() {
+    public static void kisebben_nagyobb() {
         System.out.println("<<> operátor");
         if(input.charAt(i)=='$'){System.exit(1);}  
     }
 
-    private static void kisebben_egyenlo() {
+    public static void kisebben_egyenlo() {
         System.out.println("<<= operátor>");
         if(input.charAt(i)=='$'){System.exit(1);} 
     }
 
-    private static void nagyobban() {
+    public static void nagyobban() {
         i++;
         if(input.charAt(i)=='=')
             System.out.println("<>= operátor>");
         else{
-            System.out.println("<hiba>");
+            hiba();
             i--;
         }
         if(input.charAt(i)=='$'){System.exit(1);} 
     }
 
-    private static void kommentben() {
+    public static void kommentben() {
         i++;
         count=0;
         if(input.charAt(i)=='}')
             komment_vege();
         else if(input.charAt(i)=='$'){
-            System.out.println("<hiba>");
+            hiba();
             count++;
         }
         else
@@ -138,12 +149,12 @@ public class DOMOL{
         if(input.charAt(i)=='$'){System.exit(1);} 
     }
 
-    private static void kerek_kommentben() {
+    public static void kerek_kommentben() {
         i++;
         if(input.charAt(i)=='*')
             kerek_csillag_kommentben();
         else
-            System.out.println("<hiba>");
+            hiba();
     }
 
     public static void kerek_csillag_kommentben(){
@@ -153,7 +164,7 @@ public class DOMOL{
             kerek_csillag_komment_vege();
         }
         else if(input.charAt(i)=='$'){
-            System.out.println("<hiba>");
+            hiba();
             count++;
         }
         else{
@@ -162,10 +173,16 @@ public class DOMOL{
         i-=count;
     }
 
-    private static void kerek_csillag_komment_vege() {
+    public static void kerek_csillag_komment_vege() {
         System.out.println("<(**) kommentár>");
         if(input.charAt(i)=='$'){System.exit(1);} 
     }
+
+    public static void hiba(){
+        System.out.println("<hiba>");
+    }
+
+    
     
    
 }
